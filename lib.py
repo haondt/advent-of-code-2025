@@ -9,12 +9,7 @@ T = TypeVar('T')
 U = TypeVar('U')
 
 def read() -> str:
-    lines = []
-    with open('input.txt') as f:
-        for line in f:
-            if len(line) > 0:
-                lines.append(line.strip())
-    return '\n'.join(lines)
+    return '\n'.join(read_lines())
 
 def read_lines() -> list[str]:
     lines = []
@@ -91,7 +86,7 @@ class Grid(Generic[T]):
         return cls([[default_value() for _x in range(width)] for _y in range(height)])
 
     @classmethod
-    def from_string(cls, input: str, caster: Callable[[str], T]):
+    def from_string(cls, input: str, caster: Callable[[str], T] = lambda x: x):
         return cls([[caster(j) for j in i] for i in input.split('\n')])
 
     def clone(self):
